@@ -6,17 +6,24 @@ import android.app.Activity;
 import android.widget.TextView;
 
 import com.example.beataturczuk.parser.Helpers.CommandData;
+import com.example.beataturczuk.parser.Helpers.DBHelper;
 import com.example.beataturczuk.parser.Internet.NetworkConnection;
 import com.example.beataturczuk.parser.R;
 
 public class MainActivity extends Activity {
 
     private TextView etResponse;
+    private DBHelper mydb;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mydb = new DBHelper(this);
+        mydb.getWritableDatabase();
+
         // call AsynTask to perform network operation on separate thread
         new HttpAsyncTask(this).execute(CommandData.URL_ADDRESS);
 
